@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NOISY</title>
+  <style>
+    @font-face {
+      font-family: Noisy;
+      src: url("./NoisyTest.ttf") format("truetype");
+      }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      background: black;
+      color: white;
+      font-family: 'Noisy', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    
+    .main-text {
+      font-size: clamp(3rem, 15vw, 10rem);
+      font-weight: 100;
+      text-align: center;
+      line-height: 1.1;
+      transition: font-weight 0.01s ease-out;
+      font-variation-settings: 'wght' 100;
+      user-select: none;
+    }
+  </style>
+</head>
+<body>
+  <h1 class="main-text reactive-text">THIS IS RLY AESTHETIC</h1>
+
+<script>
+    let audioContext;
+    let analyser;
+    let dataArray;
+    let currentWeight = 100;
+    
+    const reactiveElements = document.querySelectorAll('.reactive-text');
+    
+    window.addEventListener('load', initMicrophone);
+    
+    async function initMicrophone() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        analyser = audioContext.createAnalyser();
+        const source = audioContext.createMediaStreamSource(stream);
+        
+        analyser.fftSize = 2048;
+        analyser.smoothingTimeConstant = 0.25;
+        const bufferLength = analyser.frequencyBinCount;
+        dataArray = new Uint8Array(bufferLength);
+        
+        source.connect(analyser);
+        
+        analyzeAudio();
+
+      } catch (error) {
+        console.error('Microphone access denied:', error);
+      }
+    }
+    
+    function analyzeAudio() {
+      analyser.getByteFrequencyData(dataArray);
+      
+      const overall = dataArray.reduce((a, b) => a + b) / dataArray.length;
+      const normalized = overall / 255;
+      const curved = Math.pow(normalized, 0.36); 
+      const amplified = curved * 255;
+      
+      currentWeight = Math.round(100 + (amplified / 255) * 600);
+      
+      // Apply to ALL reactive text elements
+      reactiveElements.forEach(element => {
+        element.style.fontVariationSettings = `'wght' ${currentWeight}`;
+      });
+      
+      requestAnimationFrame(analyzeAudio);
+    }
+  </script>
+</body>
+</html>
