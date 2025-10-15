@@ -3,46 +3,69 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NOISY</title>
-  <style>
-    @font-face {
-      font-family: Noisy;
-      src: url("./NoisyTest.ttf") format("truetype");
-      }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
-    body {
-      background: black;
-      color: white;
-      font-family: 'Noisy', sans-serif;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-    
-    .main-text {
-      font-size: clamp(3rem, 15vw, 10rem);
-      font-weight: 100;
-      text-align: center;
-      line-height: 1.1;
-      transition: font-weight 0.01s ease-out;
-      font-variation-settings: 'wght' 100;
-      user-select: none;
-    }
-  </style>
+  <title>Aesthete</title>
+  <link rel="stylesheet" href="./resources/index.css">
+  <link rel="icon" type="image/x-icon" href="./resources/favicon.png">
 </head>
+
 <body>
-  <h1 class="main-text reactive-text">THIS IS RLY AESTHETIC</h1>
+  <div id="menu-bar">
+    <p id="menu-left"><span class="italic">Aesthete</span> Digital Type Specimen</p>
+  </div>
+
+
+    <section class="section section-1">        
+      <h1 class="main-text reactive-text">Aesthete</h1>
+
+  <div id="main-info"><p>A Digital Variable Typeface that Responds to Sound</p>
+  <p>by Avrie Allen</p>
+    </div>
+  </section>
+
+  <section class="section section-2">
+<h1 class="display-text" id="displayText">SENSE<br>MEMORY</h1>
+
+  <div class="slider-container">
+    <div class="slider-wrapper">
+      <input type="range" min="100" max="900" value="100" class="slider" id="weightSlider">
+    </div>
+    
+    <div class="labels">
+      <div class="label-left">
+        <div class="label-title">FOCUSED</div>
+      </div>
+      <div class="label-right">
+        <div class="label-title">NOISY</div>
+      </div>
+    </div>
+  </div>
+  </section>
+
+  <section class="section section-3">
+    <div>
+      <p id="about-text">
+        Tracing the etymology of <span class="italic">aesthetics</span>, rooted in the Greek <span class="italic">aisthitikos</span>, it originally referred to sensuous perception; cognition through our senses; our bodies’ way of perceiving and responding to signals in the world. <span class="italic">Aesthete</span> illustrates this, sensing and reflecting the environment it is used in. Its variability, ranging from focused to illegible noise, mimics our own sensory systems in our technologically-mediated environments. Volume input, in this instance, stands in for sensory noise as a whole; the more stimulus we encounter the more we must dull our senses to compensate, shutting out experience. <span class="italic">Aesthete</span> intentionally engages the body within digital space and technology differently – not as a means for gathering data or capturing attention, but as a mirror for our being in the world, encouraging bodily awareness and play.
+      </p>
+    </div>
+  </section>
+
+<section class="section section-4">
+  <div class="typing-container">
+    <textarea 
+      id="typingArea" 
+      class="typing-area reactive-text" 
+      placeholder="Click here to type..."
+      spellcheck="false"
+    ></textarea>
+
+
+
+    </div>
+  </div>
+</section>
 
 <script>
-    let audioContext;
+   let audioContext;
     let analyser;
     let dataArray;
     let currentWeight = 100;
@@ -78,10 +101,10 @@
       
       const overall = dataArray.reduce((a, b) => a + b) / dataArray.length;
       const normalized = overall / 255;
-      const curved = Math.pow(normalized, 0.36); 
+      const curved = Math.pow(normalized, 0.35); 
       const amplified = curved * 255;
       
-      currentWeight = Math.round(100 + (amplified / 255) * 600);
+      currentWeight = Math.round(100 + (amplified / 255) * 500);
       
       // Apply to ALL reactive text elements
       reactiveElements.forEach(element => {
@@ -90,6 +113,68 @@
       
       requestAnimationFrame(analyzeAudio);
     }
-  </script>
+</script>
+<script>
+
+  const weightSlider = document.getElementById('weightSlider');
+  const displayText = document.getElementById('displayText');
+  const section2 = document.querySelector('.section-2');
+  const labels = document.querySelector('.labels');
+
+  console.log('weightSlider:', weightSlider);
+  console.log('displayText:', displayText);
+  console.log('section2:', section2);
+  console.log('labels:', labels);
+
+  if (weightSlider && displayText && section2 && labels) {
+    console.log('All elements found, adding listener');
+    
+    weightSlider.addEventListener('input', function() {
+      const weight = this.value;
+      console.log('Slider value:', weight);
+      
+      displayText.style.fontVariationSettings = `'wght' ${weight}`;
+      
+      const progress = (weight - 100) / 800;
+      
+      const bgR = Math.round(124 + (255 - 124) * progress);
+      const bgG = Math.round(187 + (255 - 187) * progress);
+      const bgB = Math.round(240 + (255 - 240) * progress);
+      section2.style.backgroundColor = `rgb(${bgR}, ${bgG}, ${bgB})`;
+      
+      const textR = Math.round(200 + (0 - 200) * progress);
+      const textG = Math.round(255 + (0 - 255) * progress);
+      const textB = Math.round(109 + (0 - 109) * progress);
+      const textColor = `rgb(${textR}, ${textG}, ${textB})`;
+      
+      displayText.style.color = textColor;
+      labels.style.color = textColor;
+    });
+  } else {
+    console.error('MISSING ELEMENTS:');
+    if (!weightSlider) console.error('- weightSlider not found');
+    if (!displayText) console.error('- displayText not found');
+    if (!section2) console.error('- section2 not found');
+    if (!labels) console.error('- labels not found');
+  }
+</script>
+
+<script>
+const section4 = document.querySelector('.section-4');
+
+if (section4 && 'IntersectionObserver' in window) {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !isAudioInitialized) {
+        console.log('Section 4 visible, initializing microphone...');
+        initMicrophone();
+      }
+    });
+  }, { threshold: 0.5 });
+  
+  observer.observe(section4);
+}
+</script>
+  
 </body>
 </html>
