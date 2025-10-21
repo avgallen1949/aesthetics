@@ -28,10 +28,9 @@
 
 html, body {
   height: 100%;
-  overflow: hidden; /* Prevent body scroll */
+  overflow: hidden; 
 }
 
-/* Make each content div a scroll container */
 #mainContent, #aestheticsContent {
   height: 100vh;
   overflow-y: scroll;
