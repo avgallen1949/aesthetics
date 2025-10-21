@@ -108,23 +108,14 @@ function analyzeAudio() {
   
   let weight;
   
-  // Stage 1: Very quiet/silence (0-8% volume) - minimal reactivity, stays thin
-  // Weight range: 100-250 (barely moves)
   if (normalized < 0.08) {
-    const stageNormalized = normalized / 0.08; // 0-1 within this stage
+    const stageNormalized = normalized / 0.08; 
     weight = Math.round(100 + (stageNormalized * 150));
-  }
-  // Stage 2: Quiet speech (8-20% volume) - moderate variation
-  // Weight range: 250-600 (becoming noticeable)
-  else if (normalized < 0.15) {
-    const stageNormalized = (normalized - 0.08) / 0.12; // 0-1 within this stage
+  } else if (normalized < 0.15) {
+    const stageNormalized = (normalized - 0.08) / 0.12;
     weight = Math.round(250 + (stageNormalized * 500));
-  }
-  // Stage 3: Normal speech and up (20-100% volume) - dramatic change, hits max easily
-  // Weight range: 600-1600 (extreme boldness, reaches max quickly)
-  else {
-    const stageNormalized = (normalized - 0.20) / 0.80; // 0-1 within this stage
-    // Use stronger exponential curve to reach max weight very quickly
+  } else {
+    const stageNormalized = (normalized - 0.20) / 0.80;
     const curved = Math.pow(stageNormalized, 0.4);
     weight = Math.round(600 + (curved * 1000));
   }
