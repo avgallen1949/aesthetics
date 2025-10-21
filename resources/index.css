@@ -13,6 +13,11 @@
       src: url("./WT_Kormelink_Italic.woff");
       }
 
+      @font-face {
+      font-family: Digital Sans Bold;
+      src: url("./DigitalSans.otf");
+      }
+
     * {
       margin: 0;
       padding: 0;
@@ -22,16 +27,29 @@
     font-family: 'Kormalink', 'Times New Roman', Times, serif;
     }
 
+    a {
+      text-decoration: none;
+      color: white;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit:cover;
+    }
+
     .section {
       width: 100vw;
       height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      position: sticky;
       top: 0;
-      padding: 60px;
-    scroll-snap-align: start;
+      scroll-snap-align: start;
     }
 
     .section-1 {
@@ -72,6 +90,194 @@
     .section-4 {
     background: #ba3422;
     position: sticky;
+    }
+
+    #aesthetics-title {
+      position: absolute;
+      z-index: 99;
+      text-align: center;
+      height: auto;
+      font-size: 10rem;
+      font-family: Digital Sans Bold, Arial, sans-serif;
+    }
+
+    .section5, .section6, .section7, .section8, .section9, .section10, .section11, .section12, .section13, .section14, .section15, .section16, .section17, .section18, .section19, .section20{
+      position: sticky;
+      background-color: white;
+    }
+
+    .alt {
+      position: sticky;
+    }
+
+      .aesthete {
+      font-family: Aesthete, sans-serif;
+      font-weight: 100;
+      line-height: 5rem;
+      position: absolute;
+      display: block;
+      text-align: center;
+      z-index: 100;
+      font-size: 7rem;
+      color: black;
+      mix-blend-mode:multiply;
+    }
+
+      .text {
+      position: absolute;
+      z-index: 95;
+      width: 30rem;
+      height: auto;
+    }
+
+    .text1 {
+      top: 30%;
+      left: 20%;
+    }
+
+    .text2 {
+      bottom: 5rem;
+      left: 10rem;
+    }
+
+    .text3 {
+      bottom: 10rem;
+      left: 8rem;
+    }
+
+    .text4{
+      top: 5rem;
+      right: 20rem;
+    }
+
+    .text5{
+      bottom: 25rem;
+      right: 30rem;
+    }
+
+    .text6{
+      bottom: 3rem;
+      left: 30rem;
+    }
+
+    .text7 {
+      top: 19rem;
+      right: 8rem;
+    }
+
+    .text8 {
+      right: 15rem;
+      bottom: 15rem;
+    }
+
+    .text9 {
+      left: 15rem;
+      bottom: 7rem;
+    }
+    
+    .text10 {
+      top: 12rem;
+      left: 15rem;
+    }
+
+    .text11 {
+      top: 5rem;
+      left: 30rem;
+    }
+
+    .text12 {
+      right: 10rem;
+      bottom: 10rem;
+    }
+
+    .text13 {
+      left: 15rem;
+      bottom: 20rem;
+    }
+
+    .text14 {
+      right: 10rem;
+      bottom: 5rem;
+    }
+
+    .text15 {
+      top: 20rem;
+      right: 20rem;
+    }
+
+    .discourse {
+      bottom: 30%;
+      right: 40%;
+    }
+
+    .perceptive {
+      top: 12rem;
+      right: 20%;
+    }
+
+    .instinct {
+      left: 14rem;
+      bottom: 4rem;
+    }
+
+    .world {
+      bottom: 5rem;
+      left: 10rem;
+    }
+
+    .stimuli {
+      bottom: 8rem;
+      right: 25rem;
+    }
+
+    .mimetic {
+      top: 5rem;
+      right: 23rem;
+    }
+
+    .factory {
+      bottom: 15rem;
+      left: 18rem;
+    }
+
+    .sealed {
+      left: 38rem;
+      top: 15rem;
+    }
+
+    .anaesthetic {
+      top: 7rem;
+      right: 3rem;
+    }
+
+    .control {
+      bottom: 9rem;
+      right: 10rem;
+    }
+
+    .perception {
+      left: 15rem;
+      top: 30rem;
+    }
+
+    .passing {
+      left: 10rem;
+      top: 15rem;
+    }
+
+    .body {
+      right: 15rem;
+      bottom: 15rem;
+    }
+
+    .reception {
+      left: 5rem;
+      top: 10rem;
+    }
+
+    .modern {
+      bottom: 20rem;
+      left: 5rem;
     }
     
     h1 {
@@ -120,11 +326,60 @@
       border-bottom: 1px solid white;
     }
 
-    #menu-bar p {
-      text-align: center;
-      padding: .5rem;
+    #menu-bar2 {
+      color: black;
+      border-bottom: 1px solid black;
+      position: fixed;
+      z-index: 100;
+      display: flex;
+      width: 100vw;
+      margin: 0;
+      top: 0;
+      height: 3rem;
+    }
+
+    #button-left2, #button-right2 {
+      color: black;
+    }
+
+    #menu-left, #menu-left2 {
+      text-align: left;
+      padding: 1rem;
       width: 100vw;
       margin: auto;
+    }
+
+    #menu-right, #menu-right2 {
+      display: inline-flex;
+      position: absolute;
+      right: .5rem;
+      top: .25rem;
+    }
+
+    button {
+      padding: .5rem;
+      margin: .25rem;
+      border: none;
+      background-color: rgba(255, 255, 255, 0);
+      color: white;
+    }
+
+    #button-right:hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    #button-left {
+      text-decoration: underline; 
+    }
+
+      #button-left2:hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    #button-right2 {
+      text-decoration: underline; 
     }
 
     #main-info {
@@ -233,7 +488,7 @@
       margin-bottom: 5px;
     }
 
-    .typing-container {
+  .typing-container {
   width: 80vw;
   max-width: 1200px;
   display: flex;

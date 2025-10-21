@@ -11,6 +11,10 @@
 <body>
   <div id="menu-bar">
     <p id="menu-left"><span class="italic">Aesthete</span> Digital Type Specimen</p>
+    <div id="menu-right">
+      <button id="button-left" type="button">Typeface</button>
+      <button id="button-right" type="button" onclick="window.location.href='./onaesthetics.html';">On Aesthetics</button>
+    </div>
   </div>
 
 
@@ -18,7 +22,7 @@
       <h1 class="main-text reactive-text">Aesthete</h1>
 
   <div id="main-info"><p>A Digital Variable Typeface that Responds to Sound</p>
-  <p>by Avrie Allen</p>
+  <a href="https://www.avrie.world/" target="_blank"><p>by Avrie Allen</p></a>
     </div>
   </section>
 
@@ -106,7 +110,6 @@
       
       currentWeight = Math.round(100 + (amplified / 255) * 500);
       
-      // Apply to ALL reactive text elements
       reactiveElements.forEach(element => {
         element.style.fontVariationSettings = `'wght' ${currentWeight}`;
       });
