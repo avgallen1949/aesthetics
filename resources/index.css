@@ -401,6 +401,11 @@
         padding: 3px;
     }
 
+    #main-info-text {
+      font-family: Digital Sans Bold, sans-serif;
+      text-transform: uppercase;
+    }
+
       .display-text {
       font-size: clamp(3rem, 15vw, 15rem);
       text-align: center;
