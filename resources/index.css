@@ -18,23 +18,37 @@
       src: url("./DigitalSans.otf");
       }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    scroll-behavior: smooth;    
-    font-family: 'Kormalink', 'Times New Roman', Times, serif;
-    }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;    
+  font-family: 'Kormalink', 'Times New Roman', Times, serif;
+}
 
-    html {
-      scroll-snap-type: y mandatory;
-    }
+html, body {
+  height: 100%;
+  overflow: hidden; /* Prevent body scroll */
+}
 
-    body {
-      scroll-snap-type: y mandatory;
-      overflow-y: scroll;
-      height: 100vh;
-    }
+/* Make each content div a scroll container */
+#mainContent, #aestheticsContent {
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
+.section {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  top: 0;
+}
 
     a {
       text-decoration: none;
@@ -49,17 +63,6 @@
       width: 100%;
       height: 100%;
       object-fit:cover;
-    }
-
-    .section {
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      top: 0;
-      scroll-snap-align: start;
-      scroll-snap-stop: always;
     }
 
     .section-1 {
