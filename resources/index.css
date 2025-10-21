@@ -88,9 +88,10 @@
     }
 
     .section-4 {
-    background: #ba3422;
+    background: #f46d14;
     position: sticky;
     }
+
 
     #aesthetics-title {
       position: absolute;
@@ -120,8 +121,7 @@
       z-index: 100;
       font-size: 7rem;
       color: black;
-      mix-blend-mode:multiply;
-    }
+      }
 
       .text {
       position: absolute;
@@ -362,6 +362,8 @@
       border: none;
       background-color: rgba(255, 255, 255, 0);
       color: white;
+      font-family: Digital Sans Bold, sans-serif;
+      text-transform: uppercase;
     }
 
     #button-right:hover {
@@ -507,7 +509,6 @@
   min-height: 400px;
   background: transparent;
   border: none;
-  padding: 40px;
   font-family: 'Aesthete', sans-serif;
   font-size: clamp(8rem, 12vw, 11rem);
   color: #ffba5f;

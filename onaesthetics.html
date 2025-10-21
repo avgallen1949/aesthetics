@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+          <a href="https://www.avrie.world/" target="_blank"><p>by Avrie Allen</p></a>
+
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -223,12 +226,12 @@ function analyzeAudio() {
   
   let weight;
   
-  if (normalized < 0.08) {
-    const stageNormalized = normalized / 0.08; 
+  if (normalized < 0.05) {
+    const stageNormalized = normalized / 0.05; 
     weight = Math.round(100 + (stageNormalized * 150));
-  } else if (normalized < 0.15) {
-    const stageNormalized = (normalized - 0.08) / 0.12;
-    weight = Math.round(250 + (stageNormalized * 500));
+  } else if (normalized < 0.10) {
+    const stageNormalized = (normalized - 0.08) / 0.10;
+    weight = Math.round(250 + (stageNormalized * 800));
   } else {
     const stageNormalized = (normalized - 0.20) / 0.80;
     const curved = Math.pow(stageNormalized, 0.4);
