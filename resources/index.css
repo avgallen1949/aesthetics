@@ -22,7 +22,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  scroll-behavior: smooth;    
+  /* scroll-behavior: smooth;     */
   font-family: 'Kormalink', 'Times New Roman', Times, serif;
 }
 
@@ -34,7 +34,7 @@ html, body {
 #mainContent, #aestheticsContent {
   height: 100vh;
   overflow-y: scroll;
-  scroll-snap-type: y mandatory;
+  scroll-snap-type: y proximity;
   scroll-behavior: smooth;
 }
 
@@ -335,12 +335,10 @@ html, body {
       margin: 0;
       top: 0;
       height: 3rem;
-      border-bottom: 1px solid white;
     }
 
     #menu-bar2 {
       color: black;
-      border-bottom: 1px solid black;
       position: fixed;
       z-index: 100;
       display: flex;
@@ -348,6 +346,7 @@ html, body {
       margin: 0;
       top: 0;
       height: 3rem;
+      font-family: Digital Sans Bold, sans-serif;
     }
 
     #button-left2, #button-right2 {
@@ -359,6 +358,8 @@ html, body {
       padding: 1rem;
       width: 100vw;
       margin: auto;
+      font-family: Digital Sans Bold, sans-serif;
+      text-transform: uppercase;
     }
 
     #menu-right, #menu-right2 {
@@ -398,7 +399,6 @@ html, body {
 
     #main-info {
       color: white;
-      width: 50vw;
       margin: auto;
       display: block;
       align-items: center;
@@ -406,9 +406,8 @@ html, body {
       z-index: 5;
       position: absolute;
       text-align: center;
-      bottom: 2rem;
-      left: 50vw;
-      transform: translate(-50%, 0);
+      top: 10px;
+      left: 10px;
     }
 
     #main-info p {
