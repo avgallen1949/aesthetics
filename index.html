@@ -317,94 +317,55 @@
 
 <!-- REACTIVE -->
 <script>
-  let audioContext;
-  let analyser;
-  let dataArray;
-  let currentWeight = 100;
-
+  let audioContext, analyser, dataArray;
   const reactiveElements = document.querySelectorAll('.reactive-text');
   const audioElement = document.getElementById('backgroundAudio');
   const noisyBtn = document.getElementById('noisyBtn');
   const pauseBtn = document.getElementById('pauseBtn');
 
-  window.addEventListener('load', initMicrophone);
-
-  async function initMicrophone() {
+  window.addEventListener('load', async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ 
-        audio: {
-          echoCancellation: false,
-          noiseSuppression: false,
-          autoGainControl: false
-        }
+        audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false }
       });
       
       audioContext = new (window.AudioContext || window.webkitAudioContext)();
       analyser = audioContext.createAnalyser();
       analyser.fftSize = 2048;
       analyser.smoothingTimeConstant = 0.18;
-      const bufferLength = analyser.frequencyBinCount;
-      dataArray = new Uint8Array(bufferLength);
+      dataArray = new Uint8Array(analyser.frequencyBinCount);
       
-      const micSource = audioContext.createMediaStreamSource(stream);
-      micSource.connect(analyser);
+      audioContext.createMediaStreamSource(stream).connect(analyser);
       
-      console.log('Microphone listening');
-      analyzeAudio();
+      // Start animation loop
+      (function analyze() {
+        analyser.getByteFrequencyData(dataArray);
+        const normalized = (dataArray.reduce((a, b) => a + b) / dataArray.length) / 255;
+        
+        const weight = normalized < 0.07 ? 100 + (normalized / 0.07) * 700 :
+                       normalized < 0.10 ? 250 + ((normalized - 0.08) / 0.10) * 900 :
+                       600 + Math.pow((normalized - 0.20) / 0.80, 0.4) * 1300;
+        
+        reactiveElements.forEach(el => el.style.fontVariationSettings = `'wght' ${Math.round(weight)}`);
+        requestAnimationFrame(analyze);
+      })();
       
-    } catch (error) {
-      console.error('Microphone access denied:', error);
+    } catch (e) {
+      console.error('Mic error:', e);
     }
-  }
-
-  noisyBtn.addEventListener('click', () => {
-    audioElement.play()
-      .then(() => {
-        console.log('Audio playing');
-        noisyBtn.style.textDecoration = 'underline';
-        pauseBtn.style.textDecoration = 'none';
-      })
-      .catch(e => {
-        console.error('Play failed:', e);
-      });
   });
 
-  pauseBtn.addEventListener('click', () => {
+  noisyBtn.onclick = () => {
+    audioElement.play();
+    noisyBtn.style.textDecoration = 'underline';
+    pauseBtn.style.textDecoration = 'none';
+  };
+
+  pauseBtn.onclick = () => {
     audioElement.pause();
     pauseBtn.style.textDecoration = 'underline';
     noisyBtn.style.textDecoration = 'none';
-  });
-
-  function analyzeAudio() {
-    if (dataArray) {
-      analyser.getByteFrequencyData(dataArray);
-      
-      const overall = dataArray.reduce((a, b) => a + b) / dataArray.length;
-      const normalized = overall / 255;
-      
-      let weight;
-      
-      if (normalized < 0.07) {
-        const stageNormalized = normalized / 0.07; 
-        weight = Math.round(100 + (stageNormalized * 700));
-      } else if (normalized < 0.10) {
-        const stageNormalized = (normalized - 0.08) / 0.10;
-        weight = Math.round(250 + (stageNormalized * 900));
-      } else {
-        const stageNormalized = (normalized - 0.20) / 0.80;
-        const curved = Math.pow(stageNormalized, 0.4);
-        weight = Math.round(600 + (curved * 1300));
-      }
-      
-      currentWeight = weight;
-      
-      reactiveElements.forEach(element => {
-        element.style.fontVariationSettings = `'wght' ${currentWeight}`;
-      });
-    }
-    
-    requestAnimationFrame(analyzeAudio);
-  }
+  };
 </script>
   
 </body>
